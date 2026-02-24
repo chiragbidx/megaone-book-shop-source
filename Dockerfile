@@ -1,9 +1,11 @@
-FROM node:20
+FROM node:20-alpine
+
+# Install only git for repo syncing
+RUN apk add --no-cache git
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-
+# Copy source (no .git thanks to .dockerignore)
 COPY . .
 
 EXPOSE 8080
